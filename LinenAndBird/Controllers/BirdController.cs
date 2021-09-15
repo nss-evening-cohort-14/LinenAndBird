@@ -46,7 +46,33 @@ namespace LinenAndBird.Controllers
 
             _repo.Add(newBird);
 
-            return Created("/api/birds/1", newBird);
+            return Created($"/api/birds/{newBird.Id}", newBird);
+        }
+
+        //api/birds/{id}
+        [HttpDelete("{id}")]
+        public IActionResult DeleteBird(Guid id)
+        {
+            _repo.Remove(id);
+
+            return Ok();
+        }
+
+        //api/birds/{id}
+        [HttpPut("{id}")]
+        public IActionResult UpdateBird(Guid id, Bird bird)
+        {
+            var birdToUpdate = _repo.GetById(id);
+
+            if (birdToUpdate == null)
+            {
+                return NotFound($"Could not find bird with the id {id} for updating");
+            }
+
+            var updatedBird = _repo.Update(id, bird);
+
+            return Ok(updatedBird);
+
         }
     }
 }
