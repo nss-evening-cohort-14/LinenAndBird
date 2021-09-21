@@ -10,7 +10,6 @@ namespace LinenAndBird.DataAccess
 {
     public class BirdRepository
     {
-
         const string _connectionString = "Server=localhost;Database=LinenAndBird;Trusted_Connection=True;";
 
         internal IEnumerable<Bird> GetAll()
