@@ -2,7 +2,6 @@
 using LinenAndBird.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 
 namespace LinenAndBird.Controllers
 {
@@ -12,9 +11,11 @@ namespace LinenAndBird.Controllers
     {
         BirdRepository _repo;
 
-        public BirdController()
+        //this is asking asp.net for a bird repo
+        //this is known as Dependency Injection
+        public BirdController(BirdRepository repo)
         {
-            _repo = new BirdRepository();
+            _repo = repo;
         }
 
         [HttpGet]

@@ -4,12 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Data.SqlClient;
 using Dapper;
+using Microsoft.Extensions.Configuration;
 
 namespace LinenAndBird.DataAccess
 {
     public class OrdersRepository
     {
-        const string _connectionString = "Server=localhost;Database=LinenAndBird;Trusted_Connection=True;";
+        string _connectionString;
+        //this is asking asp.net for the application configuration 
+        public OrdersRepository(IConfiguration config)
+        {
+            _connectionString = config.GetConnectionString("LinenAndBird");
+        }
 
         internal IEnumerable<Order> GetAll()
         {
