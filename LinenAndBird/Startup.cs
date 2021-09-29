@@ -31,11 +31,11 @@ namespace LinenAndBird
             //services.AddTransient<IConfiguration>() -> create a new thing anytime someone asks for one
             //services.AddScoped<IConfiguration>() -> create a new thing once per http request
             services.AddSingleton<IConfiguration>(Configuration); // -> any time someone asks for this thing, give them the same copy.  forever.  until the application stops
-            
+
             //we're going to register every repository as a transient
             services.AddTransient<BirdRepository>(); // -> create a new thing anytime someone asks for one
             services.AddTransient<OrdersRepository>(); // -> create a new thing anytime someone asks for one
-            services.AddTransient<HatRepository>(); // -> create a new thing anytime someone asks for one
+            services.AddTransient<IHatRepository, HatRepository>(); // -> create a new thing anytime someone asks for one
 
 
             services.AddControllers();
