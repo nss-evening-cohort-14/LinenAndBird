@@ -2,10 +2,12 @@
 using LinenAndBird.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LinenAndBird.Controllers
 {
     [Route("api/birds")]
+    [Authorize]
     [ApiController]
     public class BirdController : ControllerBase
     {
@@ -19,8 +21,10 @@ namespace LinenAndBird.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetAllBirds()
         {
+            var fbUserId = User.FindFirst(claim => claim.Type == "user_id").Value;
             return Ok(_repo.GetAll());
         }
 
